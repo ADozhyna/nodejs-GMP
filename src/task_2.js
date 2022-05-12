@@ -10,6 +10,7 @@ pipeline(
   csv({
       noheader: false,
       headers: ["book", "author", "amount", "price"],
+      ignoreColumns: /(Amount|amount)/
   }),
   createWriteStream(txtFilePath),
   (error) => error ? console.log(error) : console.log("pipeline accomplished")
