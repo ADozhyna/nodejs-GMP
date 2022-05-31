@@ -1,0 +1,168 @@
+openapi: 3.0.0
+info:
+  title: CRUD operation (node.js + Express.js)
+  version: 1.0.0
+
+servers:
+  - url: /
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        login:
+          type: string
+        password:
+          type: string
+        age:
+          type: number
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
+
+paths:
+  /users:
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      description: Gets all users
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      tags:
+        - Users
+      summary: Create user
+      description: Creates a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: example
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+                age:
+                  type: number
+      responses:
+        200:
+          description: The user has been created.
+          content:
+            application/json:
+              schema:
+                type: object
+                title: example
+                properties:
+                  userId:
+                    type: string
+  /users/searchByLogin:
+    parameters:
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        required: true
+        schema:
+          type: number
+    get:
+      tags:
+        - Users
+      summary: Search users by login
+      description: Search users by login
+        e.g. “/users/searchByLogin?query=bobby&limit=5”
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/{userId}:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Users
+      summary: Get user by ID
+      description: Gets a user by ID
+        e.g. “/users/”
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: User not found
+    put:
+      tags:
+        - Users
+      summary: Update a user
+      description: Updates a user by ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: example
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+                age:
+                  type: number
+      responses:
+        200:
+          description: The user has been updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        404:
+          description: User not found
+    delete:
+      tags:
+        - Users
+      summary: Delete user
+      description: Deletes user by ID. When somebody
+        DELETE User, all Tasks where User is assignee
+        should be updated to put userId=null
+      responses:
+        204:
+          description: The user has been deleted
+        404:
+          description: User not found
+   
