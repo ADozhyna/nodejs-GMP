@@ -8,17 +8,18 @@ export const usersRouter = express.Router();
 
 // GET All users
 
-usersRouter.get('/', (req: Request, res: Response) => {
-  const users = userService.getAll();
+usersRouter.get('/', async (req: Request, res: Response) => {
+  const users =  await userService.getAll();
+ 
   res.status(200).send(users);
 });
 
 // GET users/searchByLogin
 
-usersRouter.get('/searchByLogin', (req: Request<{}, {}, {}, { query: string; limit: number }>, res: Response) => {
+usersRouter.get('/searchByLogin', async (req: Request<{}, {}, {}, { query: string; limit: number }>, res: Response) => {
   const { query, limit } = req.query;
   if (query && limit) {
-    const users = userService.searchUserByLogin(query, +limit)
+    const users = await userService.searchUserByLogin(query, +limit)
     return res.status(200).send(users);
   }
 
@@ -27,8 +28,8 @@ usersRouter.get('/searchByLogin', (req: Request<{}, {}, {}, { query: string; lim
 
 // GET users/:id
 
-usersRouter.get('/:id', (req: Request, res: Response) => {
-  const user = userService.getuserById(req.params.id);
+usersRouter.get('/:id', async (req: Request, res: Response) => {
+  const user = await userService.getuserById(req.params.id);
   
   if (user) {
     return res.status(200).send(user);
@@ -39,17 +40,17 @@ usersRouter.get('/:id', (req: Request, res: Response) => {
 
 //POST create new user
 
-usersRouter.post('/', validateSchema(postSchema), (req: Request, res: Response) => {
+usersRouter.post('/', validateSchema(postSchema), async (req: Request, res: Response) => {
   const user: User = req.body;
-  const newUserId = userService.createUser(user);
+  const newUserId = await userService.createUser(user);
   res.status(200).json({ userId: newUserId });
 });
 
 // PUT users/:id
 
-usersRouter.put('/:id', validateSchema(postSchema), (req: Request, res: Response) => {
+usersRouter.put('/:id', validateSchema(postSchema), async (req: Request, res: Response) => {
   const userUpdate: User = req.body;
-  const updatedUser = userService.updateUser(req.params.id, userUpdate);
+  const updatedUser = await userService.updateUser(req.params.id, userUpdate);
   if (updatedUser) {
     return res.status(200).json(updatedUser);
   }
@@ -59,8 +60,8 @@ usersRouter.put('/:id', validateSchema(postSchema), (req: Request, res: Response
 
 // DELETE users/:id
 
-usersRouter.delete('/:id', (req: Request, res: Response) => {
-  const deletedUser = userService.deleteUser(req.params.id);
+usersRouter.delete('/:id', async (req: Request, res: Response) => {
+  const deletedUser = await userService.deleteUser(req.params.id);
   if (deletedUser) {
     return res.status(204).send('User has been deleted');
   }
