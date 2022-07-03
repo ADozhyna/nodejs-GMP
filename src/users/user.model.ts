@@ -1,7 +1,17 @@
-import { v4 as uuidv4 } from 'uuid';
+import { DataTypes, Model } from 'sequelize';
+import { db } from '../database/db';
 
-export class User {
-  public id = uuidv4();
+export interface IUserModel {
+  id: number;
+  login: string;
+  password: string;
+  age: number;
+  isDeleted: boolean;
+}
+
+type UserInstanse = IUserModel & Model;
+export class UserModel implements IUserModel {
+  public id: number = 0;
 
   constructor(
     public login: string,
@@ -10,3 +20,38 @@ export class User {
     public isDeleted: boolean = false
   ) {}
 }
+
+export const User = db.define<UserInstanse>(
+  'Users',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false,
+    },
+    login: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
+  },
+  {
+    defaultScope: {
+      attributes: { exclude: ['password'] },
+    },
+  },
+);

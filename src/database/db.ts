@@ -1,9 +1,11 @@
-import { Pool } from 'pg';
-import { config } from '../config/config';
-const pool = new Pool(config.db);
+import { Sequelize } from 'sequelize';
+import { CONFIG } from '../common/config';
 
-export async function query(query: string, params?: Array<string | number>) {
-    const {rows, fields} = await pool.query(query, params);
-
-    return rows;
-}
+export const db = new Sequelize({
+  database: CONFIG.DATABASE_NAME,
+  username: CONFIG.DATABASE_USER,
+  password: CONFIG.DATABASE_PASSWORD,
+  host: CONFIG.DATABASE_HOST,
+  port: (CONFIG.DATABASE_PORT as number | undefined) || 5432,
+  dialect: 'postgres'
+});

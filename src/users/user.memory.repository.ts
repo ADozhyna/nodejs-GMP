@@ -1,52 +1,45 @@
-import { query } from '../database/db';
-import { User } from './user.model';
+import { User, IUserModel, UserModel } from './user.model';
+import { Op } from 'sequelize';
 
-export const getAll = async (): Promise<Array<User>> => {
-    const users = await query(
-      'SELECT * FROM Users WHERE isDeleted=false'
-    );
-    return users;
+export const getAll = async () => {
+    return await User.findAll();
 };
 
 export const getById = async (id: string) => {
-    const [user] = await query(
-        'SELECT id, login, age FROM Users WHERE id=$1 AND isDeleted=false LIMIT 1',
-        [id]
-    )
-    return user;
+    console.log(User.findByPk(id)) 
+    return await User.findByPk(id);
 };
 
-export const createOne = async (user: User) => {
-    const [id] = await query(
-        'INSERT INTO Users (login, password, age, isdeleted) VALUES ($1, $2, $3, false) RETURNING id;',
-        [user.login, user.password, user.age]
-    );
-    return id;
+export const createOne = async (user: UserModel) => {
+    return User.create({ login: user.login, password: user.password, age: user.age, isDeleted: user.isDeleted }, { returning: true });
 };
 
-export const updateOne = async (id: string, user: User) => {
-    const [updatedUser] = await query(
-        'UPDATE Users SET login=$2, password=$3, age=$4 WHERE id=$1 RETURNING id, login, age;',
-        [id, user.login, user.password, user.age]
-    );
-
-    return updatedUser;
+export const updateOne = async (id: string, user: IUserModel) => {
+    return User.update(user, {
+        where: {
+          id
+        },
+        returning: true
+    });
 };
 
 export const deleteOne = async (id: string) => {
-    const [deletedUserId] = await query(
-        'UPDATE Users SET isDeleted=true WHERE id=$1 RETURNING id;',
-        [id]
-    );
-
-    return deletedUserId;
+    return User.update({ isDeleted: true }, {
+        where: {
+          id
+        },
+        returning: true
+    });
 };
 
 export const searchByLogin = async (loginSubstring: string, limit: number = 3) => {
-    const users = await query(
-        'SELECT id, login, age FROM Users WHERE login ILIKE $1 LIMIT $2;',
-        [`%${loginSubstring}%`, limit]
-    );
-
-    return users.sort((a, b) => a['login'].localeCompare(b['login']));
+    return User.findAll({
+        where: {
+          login: {
+            [Op.iLike]: `%${loginSubstring}%`
+          }
+        },
+        order: ['login'],
+        limit
+    });
 };

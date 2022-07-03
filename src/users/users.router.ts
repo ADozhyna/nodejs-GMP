@@ -1,71 +1,72 @@
-import express, { Request, Response } from 'express';
-import { validateSchema } from '../middleware/validation-middleware';
+import express, { Request, Response, NextFunction } from 'express';
+import { validateSchema } from '../middlewares/validation-middleware';
 import { postSchema } from "../validation/validation-schemas";
-import { User } from './user.model';
-import * as userService from './user.service';
+import { UserModel } from './user.model';
+import { UserService } from './user.service';
+
+const service = new UserService();
 
 export const usersRouter = express.Router();
 
 // GET All users
-
-usersRouter.get('/', async (req: Request, res: Response) => {
-  const users =  await userService.getAll();
- 
-  res.status(200).send(users);
+usersRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const users =  await service.getAll();
+    res.status(200).send(users);
+  } catch(e) {
+    next(e)
+  }
 });
 
 // GET users/searchByLogin
-
-usersRouter.get('/searchByLogin', async (req: Request<{}, {}, {}, { query: string; limit: number }>, res: Response) => {
-  const { query, limit } = req.query;
-  if (query && limit) {
-    const users = await userService.searchUserByLogin(query, +limit)
-    return res.status(200).send(users);
+usersRouter.get('/searchByLogin', async (req: Request<{}, {}, {}, { query: string; limit: number }>, res: Response, next: NextFunction) => {
+  try {
+    const { query, limit } = req.query;
+    const users = await service.searchUserByLogin(query, limit);
+    res.status(200).send(users);
+  } catch(e) {
+    next(e);
   }
-
-  res.status(400).send('Bad request');
 });
 
 // GET users/:id
-
-usersRouter.get('/:id', async (req: Request, res: Response) => {
-  const user = await userService.getuserById(req.params.id);
-  
-  if (user) {
-    return res.status(200).send(user);
+usersRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await service.getUserById(req.params.id);
+    res.status(200).send(user);
+  } catch(e) {
+    next(e);
   }
-  
-  res.status(404).send('User not found');
 });
 
 //POST create new user
-
-usersRouter.post('/', validateSchema(postSchema), async (req: Request, res: Response) => {
-  const user: User = req.body;
-  const newUserId = await userService.createUser(user);
-  res.status(200).json({ userId: newUserId });
+usersRouter.post('/', validateSchema(postSchema), async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user: UserModel = req.body;
+    const newUserId = await service.createUser(user);
+    res.status(200).json({ id: newUserId });
+  } catch(e) {
+    next(e);
+  }
 });
 
 // PUT users/:id
-
-usersRouter.put('/:id', validateSchema(postSchema), async (req: Request, res: Response) => {
-  const userUpdate: User = req.body;
-  const updatedUser = await userService.updateUser(req.params.id, userUpdate);
-  if (updatedUser) {
+usersRouter.put('/:id', validateSchema(postSchema), async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userUpdate: UserModel = req.body;
+    const updatedUser = await service.updateUser(req.params.id, userUpdate);
     return res.status(200).json(updatedUser);
+  } catch(e) {
+    next(e);
   }
-  
-  res.status(404).send('User not found');
 });
 
 // DELETE users/:id
-
-usersRouter.delete('/:id', async (req: Request, res: Response) => {
-  const deletedUser = await userService.deleteUser(req.params.id);
-  if (deletedUser) {
-    return res.status(204).send('User has been deleted');
+usersRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const deletedUserId = await service.deleteUser(req.params.id);
+    return res.status(200).send({ id: deletedUserId });
+  } catch(e) {
+    next(e);
   }
-
-  res.status(404).send('User not found');
 });
-
