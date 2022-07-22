@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
 import { validateSchema } from '../middlewares/validation-middleware';
 import { postSchema } from "../validation/validation-schemas";
-import { UserModel } from './user.model';
-import { UserService } from './user.service';
+import { UserAttributes } from '../db/models/user.model';
+import { UserService } from '../services/user.service';
 
 const service = new UserService();
 
@@ -32,7 +32,7 @@ usersRouter.get('/searchByLogin', async (req: Request<{}, {}, {}, { query: strin
 // GET users/:id
 usersRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user = await service.getUserById(req.params.id);
+    const user = await service.getUserById(+req.params.id);
     res.status(200).send(user);
   } catch(e) {
     next(e);
@@ -42,7 +42,7 @@ usersRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) 
 //POST create new user
 usersRouter.post('/', validateSchema(postSchema), async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user: UserModel = req.body;
+    const user: UserAttributes = req.body;
     const newUserId = await service.createUser(user);
     res.status(200).json({ id: newUserId });
   } catch(e) {
@@ -53,8 +53,8 @@ usersRouter.post('/', validateSchema(postSchema), async (req: Request, res: Resp
 // PUT users/:id
 usersRouter.put('/:id', validateSchema(postSchema), async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userUpdate: UserModel = req.body;
-    const updatedUser = await service.updateUser(req.params.id, userUpdate);
+    const userUpdate: UserAttributes = req.body;
+    const updatedUser = await service.updateUser(+req.params.id, userUpdate);
     return res.status(200).json(updatedUser);
   } catch(e) {
     next(e);
@@ -64,7 +64,7 @@ usersRouter.put('/:id', validateSchema(postSchema), async (req: Request, res: Re
 // DELETE users/:id
 usersRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const deletedUserId = await service.deleteUser(req.params.id);
+    const deletedUserId = await service.deleteUser(+req.params.id);
     return res.status(200).send({ id: deletedUserId });
   } catch(e) {
     next(e);

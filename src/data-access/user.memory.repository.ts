@@ -1,20 +1,20 @@
-import { User, IUserModel, UserModel } from './user.model';
+import { UserAttributes, User } from '../db/models/user.model';
 import { Op } from 'sequelize';
 
 export const getAll = async () => {
     return await User.findAll();
 };
 
-export const getById = async (id: string) => {
+export const getById = async (id: number) => {
     console.log(User.findByPk(id)) 
     return await User.findByPk(id);
 };
 
-export const createOne = async (user: UserModel) => {
+export const createOne = async (user: UserAttributes) => {
     return User.create({ login: user.login, password: user.password, age: user.age, isDeleted: user.isDeleted }, { returning: true });
 };
 
-export const updateOne = async (id: string, user: IUserModel) => {
+export const updateOne = async (id: number, user: UserAttributes) => {
     return User.update(user, {
         where: {
           id
@@ -23,7 +23,7 @@ export const updateOne = async (id: string, user: IUserModel) => {
     });
 };
 
-export const deleteOne = async (id: string) => {
+export const deleteOne = async (id: number) => {
     return User.update({ isDeleted: true }, {
         where: {
           id

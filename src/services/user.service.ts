@@ -1,12 +1,12 @@
-import { UserModel } from './user.model';
-import * as UserRepo from './user.memory.repository';
+import { UserAttributes } from '../db/models/user.model';
+import * as UserRepo from '../data-access/user.memory.repository';
 import HttpException from '../common/http-exception';
 export class UserService {
   public getAll() {
     return UserRepo.getAll();
   }
 
-  public async getUserById(id: string) {
+  public async getUserById(id: number) {
     const user = await UserRepo.getById(id);
     if (user) {
       return user;
@@ -15,7 +15,7 @@ export class UserService {
     }
   }
 
-  public async deleteUser(id: string) {
+  public async deleteUser(id: number) {
     const [,[deletedUser]] = await UserRepo.deleteOne(id);
     if (deletedUser) {
         return deletedUser.id;
@@ -24,11 +24,12 @@ export class UserService {
     }
   }
 
-  public createUser(user: UserModel) {
+  public createUser(user: UserAttributes) {
     return UserRepo.createOne(user);
   }
 
-  public async updateUser(id: string, user: UserModel) {
+  public async updateUser(id: number, user: UserAttributes
+    ) {
     const [,[updatedUser]] = await UserRepo.updateOne(id, user);
     if (updatedUser) {
         return updatedUser;

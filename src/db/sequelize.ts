@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import { CONFIG } from '../common/config';
 
-export const db = new Sequelize({
+export const sequelize = new Sequelize({
   database: CONFIG.DATABASE_NAME,
   username: CONFIG.DATABASE_USER,
   password: CONFIG.DATABASE_PASSWORD,
