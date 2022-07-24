@@ -1,14 +1,21 @@
 import { GroupAttributes } from '../db/models/group.model';
-import * as GroupRepo from '../data-access/group.memory.repository';
+import  { GroupRepository } from '../data-access/group.memory.repository';
 import HttpException from '../common/http-exception';
 
 export class GroupService {
+
+  private groupRepository: GroupRepository;
+
+  constructor(groupRepo: GroupRepository) {
+    this.groupRepository = groupRepo;
+  }
+
   public getAll() {
-    return GroupRepo.getAll();
+    return this.groupRepository.getAll();
   }
 
   public async getGroupById(id: number) {
-    const group = await GroupRepo.getById(id);
+    const group = await this.groupRepository.getById(id);
     if (group) {
       return group;
     } else {
@@ -17,7 +24,7 @@ export class GroupService {
   }
 
   public async deleteGroup(id: number) {
-    const deletedGroupId = await GroupRepo.deleteOne(id);
+    const deletedGroupId = await this.groupRepository.deleteOne(id);
     if (deletedGroupId) {
         return deletedGroupId;
     } else {
@@ -26,12 +33,12 @@ export class GroupService {
   }
 
   public createGroup(group: GroupAttributes) {
-    return GroupRepo.createOne(group);
+    return this.groupRepository.createOne(group);
   }
 
   public async updateGroup(id: number, group: GroupAttributes
     ) {
-    const [,[updatedGroup]] = await GroupRepo.updateOne(id, group);
+    const [,[updatedGroup]] = await this.groupRepository.updateOne(id, group);
     if (updatedGroup) {
         return updatedGroup;
     } else {

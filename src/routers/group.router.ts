@@ -1,8 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
+import { GroupRepository } from '../data-access/group.memory.repository';
 import { GroupAttributes } from '../db/models/group.model';
 import { GroupService } from '../services/group.service';
 
-const service = new GroupService();
+const service = new GroupService(new GroupRepository());
 
 export const groupsRouter = express.Router();
 

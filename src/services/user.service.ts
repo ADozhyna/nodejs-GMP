@@ -1,13 +1,18 @@
 import { UserAttributes } from '../db/models/user.model';
-import * as UserRepo from '../data-access/user.memory.repository';
+import { UserRepository } from '../data-access/user.memory.repository';
 import HttpException from '../common/http-exception';
 export class UserService {
+  private userRepository: UserRepository;
+
+  constructor(userRepo: UserRepository) {
+    this.userRepository = userRepo
+  }
   public getAll() {
-    return UserRepo.getAll();
+    return this.userRepository.getAll();
   }
 
   public async getUserById(id: number) {
-    const user = await UserRepo.getById(id);
+    const user = await this.userRepository.getById(id);
     if (user) {
       return user;
     } else {
@@ -16,7 +21,7 @@ export class UserService {
   }
 
   public async deleteUser(id: number) {
-    const [,[deletedUser]] = await UserRepo.deleteOne(id);
+    const [,[deletedUser]] = await this.userRepository.deleteOne(id);
     if (deletedUser) {
         return deletedUser.id;
     } else {
@@ -25,12 +30,12 @@ export class UserService {
   }
 
   public createUser(user: UserAttributes) {
-    return UserRepo.createOne(user);
+    return this.userRepository.createOne(user);
   }
 
   public async updateUser(id: number, user: UserAttributes
     ) {
-    const [,[updatedUser]] = await UserRepo.updateOne(id, user);
+    const [,[updatedUser]] = await this.userRepository.updateOne(id, user);
     if (updatedUser) {
         return updatedUser;
     } else {
@@ -40,7 +45,7 @@ export class UserService {
 
   public async searchUserByLogin(loginSubstring: string, limit: number = 3) {
     if (loginSubstring && limit) {
-        return UserRepo.searchByLogin(loginSubstring, limit);
+        return this.userRepository.searchByLogin(loginSubstring, limit);
     } else {
         throw new HttpException(400, 'Bad request');
     }

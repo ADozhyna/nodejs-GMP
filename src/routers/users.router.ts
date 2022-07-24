@@ -3,8 +3,9 @@ import { validateSchema } from '../middlewares/validation-middleware';
 import { postSchema } from "../validation/validation-schemas";
 import { UserAttributes } from '../db/models/user.model';
 import { UserService } from '../services/user.service';
+import { UserRepository } from '../data-access/user.memory.repository';
 
-const service = new UserService();
+const service = new UserService(new UserRepository());
 
 export const usersRouter = express.Router();
 

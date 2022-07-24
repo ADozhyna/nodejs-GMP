@@ -1,7 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
+import { UserGroupRepository } from '../data-access/user-group.memory.repository';
 import { UserGroupService } from '../services/user-group.service';
 
-const service = new UserGroupService();
+const service = new UserGroupService(new UserGroupRepository());
 
 export const userGroupsRouter = express.Router();
 
