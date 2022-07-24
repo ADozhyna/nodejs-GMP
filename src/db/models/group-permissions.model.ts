@@ -6,12 +6,7 @@ export interface UserGroupAttributes {
   GroupId: number
 };
 
-export class UserGroup extends Model<UserGroupAttributes> implements UserGroup {
-  /**
-   * Helper method for defining associations.
-   * This method is not a part of Sequelize lifecycle.
-   * The `models/index` file will call this method automatically.
-   */
+export class UserGroup extends Model {
   public UserId!: number;
   public GroupId!: number;
   static associate(models: any) {

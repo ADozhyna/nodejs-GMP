@@ -14,13 +14,7 @@ export interface UserAttributes {
 
 type UserCreationAttributes = Optional<UserAttributes, 'id'>;
 
-export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-  /**
-   * Helper method for defining associations.
-   * This method is not a part of Sequelize lifecycle.
-   * The `models/index` file will call this method automatically.
-   * */
-
+export class User extends Model<UserAttributes, UserCreationAttributes> {
   public id!: CreationOptional<number>;
   public login!: string;
   public password!: string;

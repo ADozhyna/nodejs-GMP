@@ -12,12 +12,8 @@ export interface GroupAttributes {
 
 type GroupCreationAttributes = Optional<GroupAttributes, 'id'>;
 
-export class Group extends Model<GroupAttributes, GroupCreationAttributes> implements GroupAttributes {
-  /**
-   * Helper method for defining associations.
-   * This method is not a part of Sequelize lifecycle.
-   * The `models/index` file will call this method automatically.
-   */
+export class Group extends Model<GroupAttributes, GroupCreationAttributes> {
+ 
   public id!: CreationOptional<number>;
   public name!: string;
   public permissions!: Array<Permission>;
