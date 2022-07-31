@@ -8,6 +8,7 @@ import { notFoundHandler } from './middlewares/not-found-middleware';
 import { sequelize } from './db/sequelize';
 import { groupsRouter } from './routers/group.router';
 import { userGroupsRouter } from './routers/user-group.router';
+import { logger } from './middlewares/logger-middleware';
 
 const swaggerDocument: swaggerUI.JsonObject = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 const app = express();
@@ -21,6 +22,7 @@ sequelize.authenticate()
     console.error(`Unable to connect to the database: ${err}`);
   });
 app.use(express.json());
+app.use(logger);
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use('/users', usersRouter);
 app.use('/groups', groupsRouter);

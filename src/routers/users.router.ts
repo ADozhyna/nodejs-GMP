@@ -43,7 +43,7 @@ usersRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) 
 //POST create new user
 usersRouter.post('/', validateSchema(postSchema), async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const user: UserAttributes = req.body;
+    const user: UserAttributes = { ...req.body, isDeleted: false };
     const newUserId = await service.createUser(user);
     res.status(200).json({ id: newUserId });
   } catch(e) {

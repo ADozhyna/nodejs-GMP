@@ -1,0 +1,8 @@
+2022-07-31 21:31:21:3121 [31merror[39m: [31mRequest: GET /users/150; query params: [object Object]; request body: [object Object], error: User not found[39m
+2022-07-31 23:58:00:580 [31merror[39m: [31mRequest: GET /users/150; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-07-31 23:59:53:5953 [31merror[39m: [31mRequest: GET /users/150; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-08-01 00:00:05:05 [31merror[39m: [31mRequest: GET /users/150; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-08-01 00:03:42:342 [31merror[39m: [31mRequest: POST /users; params: {}; query: {}; request body: {"login":"TestUser","password":"pasword123","age":16}; error: notNull Violation: User.isDeleted cannot be null[39m
+2022-08-01 00:05:38:538 [31merror[39m: [31mRequest: POST /users; params: {}; query: {}; request body: {"login":"TestUser","password":"pasword123","age":16}; error: Validation error[39m
+2022-08-01 00:07:31:731 [31merror[39m: [31mRequest: DELETE /users/88; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-08-01 00:12:15:1215 [31merror[39m: [31mRequest: GET /users/99; params: {}; query: {}; request body: {}; error: Uncaught Exception[39m

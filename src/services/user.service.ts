@@ -16,7 +16,7 @@ export class UserService {
     if (user) {
       return user;
     } else {
-      throw new HttpException(404, 'User not found');
+      throw new HttpException('User not found', 404);
     }
   }
 
@@ -25,7 +25,7 @@ export class UserService {
     if (deletedUser) {
         return deletedUser.id;
     } else {
-        throw new HttpException(404, 'User not found');
+        throw new HttpException('User not found', 404);
     }
   }
 
@@ -39,7 +39,7 @@ export class UserService {
     if (updatedUser) {
         return updatedUser;
     } else {
-        throw new HttpException(404, 'User not found');
+        throw new HttpException('User not found', 404);
     }
   }
 
@@ -47,7 +47,7 @@ export class UserService {
     if (loginSubstring && limit) {
         return this.userRepository.searchByLogin(loginSubstring, limit);
     } else {
-        throw new HttpException(400, 'Bad request');
+        throw new HttpException('Bad request', 400);
     }
   }
 }
