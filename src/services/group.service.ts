@@ -19,7 +19,7 @@ export class GroupService {
     if (group) {
       return group;
     } else {
-      throw new HttpException(404, 'Group not found');
+      throw new HttpException('Group not found', 404);
     }
   }
 
@@ -28,7 +28,7 @@ export class GroupService {
     if (deletedGroupId) {
         return deletedGroupId;
     } else {
-        throw new HttpException(404, 'Group not found');
+        throw new HttpException('Group not found', 404);
     }
   }
 
@@ -42,7 +42,7 @@ export class GroupService {
     if (updatedGroup) {
         return updatedGroup;
     } else {
-        throw new HttpException(404, 'Group not found');
+        throw new HttpException('Group not found', 404);
     }
   }
 }

@@ -43,5 +43,9 @@ export class UserRepository {
             limit
         });
     };
+
+    public async getUserByLogin(login: string) {
+        return User.findOne({ where: { login } });
+    }
 }
 

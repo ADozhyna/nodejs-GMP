@@ -40,6 +40,28 @@ security:
   - bearerAuth: []
 
 paths:
+  /login:
+    post:
+      tags:
+        - login
+      summary:
+        - get jwt token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: example
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: Successful operation
+          content: application/json
   /users:
     get:
       tags:
