@@ -11,7 +11,8 @@ export const groupsRouter = express.Router();
 groupsRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const groups =  await service.getAll();
-    res.status(200).send(groups);
+    (res as any).payload = groups;
+    next();
   } catch(e) {
     next(e)
   }
@@ -21,7 +22,8 @@ groupsRouter.get('/', async (req: Request, res: Response, next: NextFunction) =>
 groupsRouter.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const group = await service.getGroupById(+req.params.id);
-    res.status(200).send(group);
+    (res as any).payload = group;
+    next();
   } catch(e) {
     next(e);
   }
@@ -32,7 +34,8 @@ groupsRouter.post('/', async (req: Request, res: Response, next: NextFunction) =
   try {
     const group: GroupAttributes = req.body;
     const newGroupId = await service.createGroup(group);
-    res.status(200).json({ id: newGroupId });
+    (res as any).payload = { id: newGroupId };
+    next();
   } catch(e) {
     next(e);
   }
@@ -43,7 +46,8 @@ groupsRouter.put('/:id', async (req: Request, res: Response, next: NextFunction)
   try {
     const groupUpdate: GroupAttributes = req.body;
     const updatedGroup = await service.updateGroup(+req.params.id, groupUpdate);
-    return res.status(200).json(updatedGroup);
+    (res as any).payload = updatedGroup;
+    next();
   } catch(e) {
     next(e);
   }
@@ -53,7 +57,8 @@ groupsRouter.put('/:id', async (req: Request, res: Response, next: NextFunction)
 groupsRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const deletedGroupId = await service.deleteGroup(+req.params.id);
-    return res.status(200).send({ id: deletedGroupId });
+    (res as any).payload = { id: deletedGroupId };
+    next();
   } catch(e) {
     next(e);
   }

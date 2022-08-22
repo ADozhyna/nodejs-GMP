@@ -148,3 +148,38 @@
 2022-08-10 00:43:01:431 [32minfo[39m: [32mRequest: GET /users/5; params: {}; query: {}; request body: {}[39m
 2022-08-10 00:43:01:431 [31merror[39m: [31mRequest: GET /users/5; params: {}; query: {}; request body: {}; error: Cannot set headers after they are sent to the client[39m
 2022-08-10 00:44:33:4433 [32minfo[39m: [32mRequest: GET /users/5; params: {}; query: {}; request body: {}[39m
+2022-08-10 00:51:52:5152 [32minfo[39m: [32mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"123"}[39m
+2022-08-10 00:51:52:5152 [32minfo[39m: [32mRequest: POST /; request body: {"login":"BobbySinger","password":"123"}; error: validation error[39m
+2022-08-18 16:59:04:594 [32minfo[39m: [32mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}[39m
+2022-08-18 16:59:24:5924 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-18 16:59:24:5924 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: Cannot set headers after they are sent to the client[39m
+2022-08-18 17:16:15:1615 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-18 17:16:15:1615 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: undefined[39m
+2022-08-21 22:18:19:1819 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-21 22:18:19:1819 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: Unauthorized access denied[39m
+2022-08-21 22:18:59:1859 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-21 22:18:59:1859 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-08-21 22:20:17:2017 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-21 22:53:56:5356 [32minfo[39m: [32mRequest: GET /users/1555; params: {}; query: {}; request body: {}[39m
+2022-08-21 22:53:57:5357 [31merror[39m: [31mRequest: GET /users/1555; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-08-21 22:54:24:5424 [32minfo[39m: [32mRequest: GET /users/1555; params: {}; query: {}; request body: {}[39m
+2022-08-21 22:54:24:5424 [31merror[39m: [31mRequest: GET /users/1555; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-08-21 23:26:07:267 [32minfo[39m: [32mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}[39m
+2022-08-21 23:26:08:268 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}; error: Expected "payload" to be a plain object.[39m
+2022-08-21 23:28:27:2827 [32minfo[39m: [32mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}[39m
+2022-08-21 23:28:27:2827 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}; error: Expected "payload" to be a plain object.[39m
+2022-08-21 23:29:15:2915 [32minfo[39m: [32mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}[39m
+2022-08-21 23:29:15:2915 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}; error: Expected "payload" to be a plain object.[39m
+2022-08-21 23:32:28:3228 [32minfo[39m: [32mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}[39m
+2022-08-21 23:32:28:3228 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}; error: Expected "payload" to be a plain object.[39m
+2022-08-21 23:35:04:354 [32minfo[39m: [32mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}[39m
+2022-08-21 23:44:35:4435 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-21 23:44:35:4435 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: Invalid token[39m
+2022-08-21 23:45:15:4515 [32minfo[39m: [32mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}[39m
+2022-08-21 23:46:31:4631 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-21 23:46:32:4632 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: payload is required[39m
+2022-08-21 23:49:09:499 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-21 23:49:09:499 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: Bad "options.expiresIn" option the payload already has an "exp" property.[39m
+2022-08-21 23:51:20:5120 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-21 23:52:38:5238 [32minfo[39m: [32mRequest: GET /users; params: {}; query: {}; request body: {}[39m
+2022-08-21 23:54:56:5456 [32minfo[39m: [32mRequest: GET /users/1; params: {}; query: {}; request body: {}[39m

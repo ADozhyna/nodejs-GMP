@@ -14,7 +14,8 @@ export const usersRouter = express.Router();
 usersRouter.get('/', loginMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const users =  await service.getAll();
-    res.status(200).send(users);
+    (res as any).payload = users;
+    next();
   } catch(e) {
     next(e)
   }
@@ -25,7 +26,8 @@ usersRouter.get('/searchByLogin', loginMiddleware, async (req: Request<{}, {}, {
   try {
     const { query, limit } = req.query;
     const users = await service.searchUserByLogin(query, limit);
-    res.status(200).send(users);
+    (res as any).payload = users;
+    next();
   } catch(e) {
     next(e);
   }
@@ -35,8 +37,8 @@ usersRouter.get('/searchByLogin', loginMiddleware, async (req: Request<{}, {}, {
 usersRouter.get('/:id', loginMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await service.getUserById(+req.params.id);
-    console.log(user)
-    res.status(200).send(user);
+    (res as any).payload = user;
+    next();
   } catch(e) {
     next(e);
   }
@@ -47,7 +49,8 @@ usersRouter.post('/', loginMiddleware, validateSchema(postSchema), async (req: R
   try {
     const user: UserAttributes = { ...req.body, isDeleted: false };
     const newUserId = await service.createUser(user);
-    res.status(200).json({ id: newUserId });
+    (res as any).payload = { id: newUserId };
+    next();
   } catch(e) {
     next(e);
   }
@@ -58,7 +61,8 @@ usersRouter.put('/:id', loginMiddleware, validateSchema(postSchema), async (req:
   try {
     const userUpdate: UserAttributes = req.body;
     const updatedUser = await service.updateUser(+req.params.id, userUpdate);
-    return res.status(200).json(updatedUser);
+    (res as any).payload = updatedUser;
+    next();
   } catch(e) {
     next(e);
   }
@@ -68,7 +72,8 @@ usersRouter.put('/:id', loginMiddleware, validateSchema(postSchema), async (req:
 usersRouter.delete('/:id', loginMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const deletedUserId = await service.deleteUser(+req.params.id);
-    return res.status(200).send({ id: deletedUserId });
+    (res as any).payload = { id: deletedUserId };
+    next()
   } catch(e) {
     next(e);
   }

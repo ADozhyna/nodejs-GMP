@@ -49,3 +49,16 @@
 2022-08-10 00:34:02:342 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {}; error: WHERE parameter "login" has invalid "undefined" value[39m
 2022-08-10 00:36:55:3655 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {}; error: WHERE parameter "login" has invalid "undefined" value[39m
 2022-08-10 00:43:01:431 [31merror[39m: [31mRequest: GET /users/5; params: {}; query: {}; request body: {}; error: Cannot set headers after they are sent to the client[39m
+2022-08-18 16:59:24:5924 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: Cannot set headers after they are sent to the client[39m
+2022-08-18 17:16:15:1615 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: undefined[39m
+2022-08-21 22:18:19:1819 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: Unauthorized access denied[39m
+2022-08-21 22:18:59:1859 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-08-21 22:53:57:5357 [31merror[39m: [31mRequest: GET /users/1555; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-08-21 22:54:24:5424 [31merror[39m: [31mRequest: GET /users/1555; params: {}; query: {}; request body: {}; error: User not found[39m
+2022-08-21 23:26:08:268 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}; error: Expected "payload" to be a plain object.[39m
+2022-08-21 23:28:27:2827 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}; error: Expected "payload" to be a plain object.[39m
+2022-08-21 23:29:15:2915 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}; error: Expected "payload" to be a plain object.[39m
+2022-08-21 23:32:28:3228 [31merror[39m: [31mRequest: POST /login; params: {}; query: {}; request body: {"login":"BobbySinger","password":"Bro789"}; error: Expected "payload" to be a plain object.[39m
+2022-08-21 23:44:35:4435 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: Invalid token[39m
+2022-08-21 23:46:32:4632 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: payload is required[39m
+2022-08-21 23:49:09:499 [31merror[39m: [31mRequest: GET /users; params: {}; query: {}; request body: {}; error: Bad "options.expiresIn" option the payload already has an "exp" property.[39m

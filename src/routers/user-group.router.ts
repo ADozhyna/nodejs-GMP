@@ -11,8 +11,9 @@ userGroupsRouter.post('/', async (req: Request, res: Response, next: NextFunctio
   try {
     const userId = req.body.userId;
     const groupId = req.body.groupId;
-    const group = service.addUserToGroup(userId, groupId)
-    res.status(200).json(group);
+    const group = service.addUserToGroup(userId, groupId);
+    (res as any).payload = group;
+    next();
   } catch(e) {
     next(e);
   }

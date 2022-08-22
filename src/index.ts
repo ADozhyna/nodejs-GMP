@@ -13,6 +13,7 @@ import { winstonLogger } from './utils/logger';
 import { loginRouter } from './routers/login.router';
 import { loginMiddleware } from './middlewares/login-middleware';
 import cors from "cors";
+import { tokenGenerationMiddleware } from './middlewares/token-generation.middleware';
 
 const swaggerDocument: swaggerUI.JsonObject = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 const app = express();
@@ -20,7 +21,6 @@ const app = express();
 sequelize.authenticate()
   .then(() => {
     console.log('Connection to database has been established successfully.');
-    sequelize.sync({ force: false });
   })
   .catch((err) => {
     console.error(`Unable to connect to the database: ${err}`);
@@ -34,6 +34,7 @@ app.use('/users', usersRouter);
 app.use('/groups', loginMiddleware, groupsRouter);
 app.use('/user-group', loginMiddleware, userGroupsRouter);
 
+app.use(tokenGenerationMiddleware);
 app.use(errorHandler);
 app.use(notFoundHandler);
 
