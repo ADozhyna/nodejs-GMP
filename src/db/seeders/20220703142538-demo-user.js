@@ -2,8 +2,8 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /*return queryInterface.bulkInsert('Users',
-      /*{
+    return queryInterface.bulkInsert('Users',
+      [{
         id: 1,
         login: 'MaryWinchester',
         password: 'mary64',
@@ -66,7 +66,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ])*/
+    ])
   },
 
   async down (queryInterface, Sequelize) {

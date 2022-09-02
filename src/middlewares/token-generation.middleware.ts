@@ -8,7 +8,7 @@ export const tokenGenerationMiddleware = (
     res: express.Response,
     next: express.NextFunction,
   ) => {
-
+    console.log("TOKEN WORKS")
     const token = jwt.sign((res as any).currentUser, process.env.TOKEN_KEY as string, { expiresIn: "2h" });
     const finalPayload = {
       result: (res as any).payload,

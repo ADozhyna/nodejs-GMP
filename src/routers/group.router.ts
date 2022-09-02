@@ -33,8 +33,8 @@ groupsRouter.get('/:id', async (req: Request, res: Response, next: NextFunction)
 groupsRouter.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const group: GroupAttributes = req.body;
-    const newGroupId = await service.createGroup(group);
-    (res as any).payload = { id: newGroupId };
+    const newGroup = await service.createGroup(group);
+    (res as any).payload = { id: newGroup.id };
     next();
   } catch(e) {
     next(e);
@@ -56,8 +56,8 @@ groupsRouter.put('/:id', async (req: Request, res: Response, next: NextFunction)
 // DELETE group/:id
 groupsRouter.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const deletedGroupId = await service.deleteGroup(+req.params.id);
-    (res as any).payload = { id: deletedGroupId };
+    await service.deleteGroup(+req.params.id);
+    (res as any).payload = {};
     next();
   } catch(e) {
     next(e);

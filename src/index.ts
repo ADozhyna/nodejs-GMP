@@ -30,7 +30,7 @@ app.use(express.json());
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(logger);
 app.use('/login', loginRouter);
-app.use('/users', usersRouter);
+app.use('/users', loginMiddleware, usersRouter);
 app.use('/groups', loginMiddleware, groupsRouter);
 app.use('/user-group', loginMiddleware, userGroupsRouter);
 

@@ -11,6 +11,7 @@ export const validateSchema = (schema: Joi.AnySchema) => {
     }) ;
 
     if (error?.isJoi) {
+      console.log(error.details);
        winstonLogger.info(`Request: ${req?.method} ${req?.url}; request body: ${JSON.stringify(req?.body)}; error: validation error`);
        return res.status(400).json(errorResponse(error.details))
     }
